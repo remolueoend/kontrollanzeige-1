@@ -1,0 +1,4 @@
+{
+  "image": "ghcr.io/remolueoend/kontrollanzeige-1/dev:latest",
+  "extensions": ["be5invis.toml"]
+}
