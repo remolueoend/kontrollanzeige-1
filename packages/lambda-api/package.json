@@ -1,5 +1,5 @@
 {
-	"name": "@screen-one/lambda-api",
+	"name": "@kontrollanzeige-1/lambda-api",
 	"version": "1.0.0",
 	"main": "index.js",
 	"license": "MIT",
@@ -8,8 +8,8 @@
 		"typecheck": "yarn tsc",
 		"esbuild": "esbuild src/index.ts --bundle --minify --platform=node --target=node14 --outfile=build/index.js",
 		"build": "yarn typecheck && yarn esbuild",
-		"deploy.zip": "yarn build && cd ./build && zip ./screenOneGetData.zip index.js",
-		"deploy.upload": "aws lambda update-function-code --function-name screenOneGetData --zip-file fileb://build/screenOneGetData.zip",
+		"deploy.zip": "yarn build && cd ./build && zip ./kontrollanzeige-1-api.zip index.js",
+		"deploy.upload": "aws lambda update-function-code --function-name kontrollanzeige-1-api --zip-file fileb://build/kontrollanzeige-1-api.zip",
 		"deploy": "yarn deploy.zip && yarn deploy.upload",
 		"test.esbuild": "esbuild src/run.ts --bundle --platform=node --target=node14 --sourcemap --outfile=build/run.js",
 		"test.run": "yarn test.esbuild && node ./build/run.js",

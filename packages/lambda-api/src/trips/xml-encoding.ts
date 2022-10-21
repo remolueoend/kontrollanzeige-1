@@ -54,7 +54,7 @@ export function encodeTripRequest(
 			OJPRequest: {
 				ServiceRequest: {
 					RequestTimestamp: tagValue(dateString(requestTimestamp)),
-					RequestorRef: tagValue("wipfsteg-screenone-lambda-api"),
+					RequestorRef: tagValue("wipfsteg/kontrollanzeige-1/api"),
 					"ojp:OJPTripRequest": {
 						RequestTimestamp: tagValue(
 							dateString(requestTimestamp)
