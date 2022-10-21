@@ -1,0 +1,33 @@
+{
+	"name": "@screen-one/lambda-api",
+	"version": "1.0.0",
+	"main": "index.js",
+	"license": "MIT",
+	"private": true,
+	"scripts": {
+		"typecheck": "yarn tsc",
+		"esbuild": "esbuild src/index.ts --bundle --minify --platform=node --target=node14 --outfile=build/index.js",
+		"build": "yarn typecheck && yarn esbuild",
+		"deploy.zip": "yarn build && cd ./build && zip ./screenOneGetData.zip index.js",
+		"deploy.upload": "aws lambda update-function-code --function-name screenOneGetData --zip-file fileb://build/screenOneGetData.zip",
+		"deploy": "yarn deploy.zip && yarn deploy.upload",
+		"test.esbuild": "esbuild src/run.ts --bundle --platform=node --target=node14 --sourcemap --outfile=build/run.js",
+		"test.run": "yarn test.esbuild && node ./build/run.js",
+		"test": "jest --silent=false"
+	},
+	"devDependencies": {
+		"@types/aws-lambda": "^8.10.108",
+		"@types/luxon": "^3.0.2",
+		"@types/node": "^18.11.3",
+		"aws-lambda": "^1.0.7",
+		"axios": "^1.1.3",
+		"esbuild": "^0.15.12",
+		"jest": "^29.2.1",
+		"luxon": "^3.0.4",
+		"prettier": "^2.7.1",
+		"ts-jest": "^29.0.3",
+		"typescript": "^4.8.4",
+		"xml-js": "^1.6.11",
+		"zod": "^3.19.1"
+	}
+}

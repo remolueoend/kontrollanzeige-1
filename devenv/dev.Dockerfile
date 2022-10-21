@@ -13,6 +13,9 @@ COPY ./*.sh ./*.env /tmp/library-scripts/
 RUN bash /tmp/library-scripts/common-debian.sh "${INSTALL_ZSH}" "${USERNAME}" "${USER_UID}" "${USER_GID}" "${UPGRADE_PACKAGES}" "true" "true" \
 	&& apt-get clean -y && rm -rf /var/lib/apt/lists/* /tmp/library-scripts
 
+# allow container user to access USB device:
+RUN usermod -a -G uucp ${USER}
+
 # install prerequisites not part of common-debian:
 RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
 	&& apt-get install -y --no-install-recommends \
@@ -27,10 +30,8 @@ RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
 	pkg-config \
 	libtinfo5 \
 	xz-utils \
+	picocom \
 	&& rm -rf /var/lib/apt/lists/*
-
-# RUN groupadd -r ${GROUP} && useradd --no-log-init -m -g ${GROUP} ${USER}
-# USER ${USER}
 
 USER dev
 
