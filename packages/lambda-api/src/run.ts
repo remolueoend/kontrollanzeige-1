@@ -3,7 +3,6 @@ import { z } from "zod"
 import { handler, inputSchema } from "./index"
 
 const body: z.infer<typeof inputSchema> = {
-	authKey: process.env.AUTH_KEY!,
 	journeys: [
 		{
 			from: { placeRef: "8503000", label: "Zürich" },
@@ -14,10 +13,15 @@ const body: z.infer<typeof inputSchema> = {
 			},
 		},
 	],
+	forecasts: [
+		{
+			locationId: "47.4823,8.4595",
+		},
+	],
 }
 
 const event: APIGatewayProxyEvent = {
-	headers: {},
+	headers: { Authorization: `Bearer ${process.env.AUTH_KEY}` },
 	httpMethod: "get",
 	isBase64Encoded: false,
 	multiValueHeaders: {},

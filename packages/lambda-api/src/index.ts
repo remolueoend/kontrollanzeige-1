@@ -5,17 +5,22 @@ import { checkAuth } from "./auth"
 import { LambdaError } from "./error"
 import { json } from "./resp"
 import { getTrips } from "./trips"
+import { getForecast } from "./weather"
 
-const inputLocation = z.union([
+const journeyLocation = z.union([
 	z.object({ label: z.string(), lat: z.number(), long: z.number() }),
 	z.object({ label: z.string(), placeRef: z.string() }),
 ])
 export const inputSchema = z.object({
-	authKey: z.string(),
 	journeys: z.array(
 		z.object({
-			from: inputLocation,
-			to: inputLocation,
+			from: journeyLocation,
+			to: journeyLocation,
+		})
+	),
+	forecasts: z.array(
+		z.object({
+			locationId: z.string(),
 		})
 	),
 })
@@ -51,10 +56,14 @@ async function handleRequest(
 	event: APIGatewayEvent,
 	context: Context
 ): Promise<APIGatewayProxyResult> {
+	checkAuth(event.headers)
 	const args = parseArgs(event)
-	checkAuth(args.authKey)
 
-	const journeys = await Promise.all(
+	const forecastsPromise = Promise.all(
+		args.forecasts.map(async (f) => await getForecast(f.locationId))
+	)
+
+	const journeysPromise = Promise.all(
 		args.journeys.map(async (j) => ({
 			from: j.from,
 			to: j.to,
@@ -62,5 +71,13 @@ async function handleRequest(
 		}))
 	)
 
-	return json(journeys)
+	const [forecasts, journeys] = await Promise.all([
+		forecastsPromise,
+		journeysPromise,
+	])
+
+	return json({
+		journeys,
+		forecasts,
+	})
 }
