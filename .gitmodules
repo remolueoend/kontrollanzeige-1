@@ -1,0 +1,3 @@
+[submodule "packages/kontrollanzeige-1/embedded-io"]
+	path = packages/kontrollanzeige-1/embedded-io
+	url = git@github.com:embassy-rs/embedded-io.git

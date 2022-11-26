@@ -1,21 +1,22 @@
 [package]
 authors = ["giamun", "remolueoend"]
-categories = []
-description = ""
+categories = ["embedded", "hardware-support"]
+description = "A demo binary crate for the ESP32 and ESP-IDF, which connects to WiFi, Ethernet, drives a small HTTP server and draws on a LED screen"
 edition = "2018"
-keywords = []
-license = "GPLv3"
-name = "kontrollanzeige-1_screen"
+keywords = ["embedded", "svc", "idf", "esp-idf", "esp32"]
+license = "MIT OR Apache-2.0"
+name = "rust-esp32-std-demo"
 readme = "README.md"
-repository = "https://github.com/remolueoend/kontrollanzeige-1"
-version = "0.0.1"
+repository = "https://github.com/ivmarkov/rust-esp32-std-demo"
+version = "0.26.1"
 
 [patch.crates-io]
 getrandom = {version = "0.2", git = "https://github.com/esp-rs-compat/getrandom.git"}
-polling = {git = "https://github.com/esp-rs-compat/polling"}
-smol = {git = "https://github.com/esp-rs-compat/smol"}
-socket2 = {git = "https://github.com/esp-rs-compat/socket2"}
+# polling = {git = "https://github.com/esp-rs-compat/polling"}
+# smol = {git = "https://github.com/esp-rs-compat/smol"}
+# socket2 = {git = "https://github.com/esp-rs-compat/socket2"}
 #getrandom1 = { version = "0.1", git = "https://github.com/esp-rs-compat/getrandom.git", package = "getrandom", branch = "0.1" }
+# embedded-io = {git = "https://github.com/ivmarkov/embedded-io"}
 
 [profile.release]
 opt-level = "s"
@@ -67,12 +68,12 @@ display-interface = "0.4"
 display-interface-spi = "0.4"
 embedded-graphics = "0.7"
 embedded-hal = "0.2"
-embedded-svc = "0.21"
+embedded-svc = "0.22.3"
 epd-waveshare = "0.5.0"
-esp-idf-hal = "0.37"
-esp-idf-svc = "0.41"
+esp-idf-hal = "0.38"
+esp-idf-svc = "0.42.1"
 esp-idf-sys = {version = "0.31", features = ["binstart"]}
-ili9341 = {version = "0.5", git = "https://github.com/yuri91/ili9341-rs"}
+ili9341 = {version = "0.5", git = "https://github.com/yuri91/ili9341-rs", rev = "32ca780"}
 log = "0.4"
 smol = "1.2"
 ssd1306 = "0.7"
