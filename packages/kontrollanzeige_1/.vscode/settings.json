@@ -1,0 +1,7 @@
+{
+  "files.associations": {
+    "cstdio": "c",
+    "esp_wifi.h": "c",
+    "led.h": "c"
+  }
+}
